@@ -62,9 +62,9 @@ def create_psd_with_background_and_text(image_path, output_path=None, text='TEST
 #     print('asdasdasdasdasds')
 
     
-def run(image_path, text='TEST_TEXT'):
+def run(image_path, output_path, text, font, font_size, text_x, text_y):
 
-    create_psd_with_background_and_text(image_path=image_path, text=text)
+    create_psd_with_background_and_text(image_path=image_path, output_path=output_path, text=text, font=font, font_size=font_size, text_x=text_x, text_y=text_y)
 
 
 # "C:\Program Files\GIMP 2\bin\gimp-2.10.exe" --batch-interpreter python-fu-eval -b "import sys;sys.path=['.']+sys.path;import test;test.run()"
