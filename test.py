@@ -8,10 +8,8 @@ import os
 
 print("\n".join(sys.argv))
 
-def create_psd_with_background_and_text(image_path, text='TEST_TEXT', font="Arial", font_size=30, text_x=50, text_y=50):
-    # Распарсим текст, на отдельные сообщения 
-    text_array = text.split(' | ')
-    
+def create_psd_with_background_and_text(image_path, text='TEST_TEXT', font="Arial", font_size=70, text_x=0, text_y=0):    
+    print("yesy")
     # Открытие JPG как изображение
     image = pdb.gimp_file_load(image_path, image_path)
 
@@ -26,7 +24,7 @@ def create_psd_with_background_and_text(image_path, text='TEST_TEXT', font="Aria
     background_layer = pdb.gimp_layer_new_from_drawable(image.active_layer, psd_image)
     pdb.gimp_image_add_layer(psd_image, background_layer, -1)
 
-    # # Возможные позиции размещения текста
+    # Возможные позиции размещения текста
     # positions = [
     #     (width // 2, font_size),                # Верх (по центру горизонтально)
     #     (width // 2, height - 2 * font_size),   # Низ (по центру горизонтально)
@@ -34,15 +32,28 @@ def create_psd_with_background_and_text(image_path, text='TEST_TEXT', font="Aria
     #     (width - 3 * font_size, height // 2)    # Справа (по центру вертикально)
     # ]
 
+    # Распарсим текст, на отдельные сообщения 
+    text_array = text.split(' | ')
+    # Размещение текста
+    # for i, text_item in enumerate(text_array[:4]):
+    #     x, y = positions[i]
+    #     text_layer = pdb.gimp_text_layer_new(psd_image, text_item, font, font_size, 0)
+    #     pdb.gimp_image_add_layer(psd_image, text_layer, -1)
+    #     if i == 0 or i == 1:
+    #         pdb.gimp_layer_set_offsets(text_layer, x - pdb.gimp_text_layer_get_width(text_layer) // 2, y)
+    #     else:
+    #         pdb.gimp_layer_set_offsets(text_layer, x, y - pdb.gimp_text_layer_get_height(text_layer) // 2)
 
-    # По одному добавляем слои текста
-    for text in text_array:
+
+
+
+    for i, text in enumerate(text_array):
         # Добавляем текстовый слой
         text_layer = pdb.gimp_text_layer_new(psd_image, text, font, font_size, 0)
         pdb.gimp_image_add_layer(psd_image, text_layer, -1)
-
+        
         # Устанавливаем позицию текста
-        pdb.gimp_layer_set_offsets(text_layer, text_x, text_y)
+        pdb.gimp_layer_set_offsets(text_layer, text_x, i * int(font_size))
 
     # if (output_path):
         # pdb.gimp_file_save(psd_image, background_layer, image_path, image_path)
@@ -76,9 +87,9 @@ def create_psd_with_background_and_text(image_path, text='TEST_TEXT', font="Aria
 #     print('asdasdasdasdasds')
 
     
-def run(image_path, text, font, font_size, text_x, text_y):
-
-    create_psd_with_background_and_text(image_path=image_path, text=text, font=font, font_size=font_size, text_x=text_x, text_y=text_y)
+def run(image_path, text, font, font_size):
+    
+    create_psd_with_background_and_text(image_path=image_path, text=text, font=font, font_size=font_size)
 
 
 # "C:\Program Files\GIMP 2\bin\gimp-2.10.exe" --batch-interpreter python-fu-eval -b "import sys;sys.path=['.']+sys.path;import test;test.run()"
